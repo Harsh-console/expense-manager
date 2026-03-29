@@ -2,6 +2,7 @@
 #include<string>
 #include<fstream>
 #include<vector>
+#include<cstdlib>
 #include "Account.h"
 int main(){
     std::cout<<"Welcome to expense-manager"<<std::endl;
@@ -16,7 +17,8 @@ int main(){
     std::vector<Account> accounts;
     std::string line;
     while(std::getline(logFile, line)){
-        accounts.push_back(line);
+        Account newAcc = {line};
+        accounts.push_back(newAcc);
     }
     Account currUser;
     while(running){
@@ -28,18 +30,20 @@ int main(){
         }
         if(ans == 1){
             std::cout<<"Please Tell the Account Name : "<<std::endl;
-            std::string username; cin>>username;
+            std::string username; std::cin>>username;
             for(Account& account : accounts) if(account.name == username){
                 std::cout<<"Provided Username already exists!"<<std::endl;
                 continue;
             }
             logFile<<username<<"\n";
+            //make new empty account with name "username"
+            std::ofstream newAccFile;
             continue;
         }
         if(ans == 2){
             std::cout<<"Please Enter the Username : "<<std::endl;
-            std::string username; cin>>username;
-            bool isFound = false
+            std::string username; std::cin>>username;
+            bool isFound = false;
             for(Account& account : accounts) if(account.name == username){
                 isFound = true;
                 isLogged = true;
